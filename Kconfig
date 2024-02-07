@@ -11,6 +11,7 @@ menu "LVGL configuration"
 
 	config LV_CONF_MINIMAL
 		bool "LVGL minimal configuration."
+        default y if LV_PLATFORM_IDF
 
 	menu "Color settings"
 		choice LV_COLOR_DEPTH
@@ -72,6 +73,7 @@ menu "LVGL configuration"
 	menu "Memory settings"
 		choice
 			prompt "Malloc functions source"
+            default LV_USE_CLIB_MALLOC if LV_PLATFORM_IDF
 			default LV_USE_BUILTIN_MALLOC
 
 		config LV_USE_BUILTIN_MALLOC
@@ -1613,5 +1615,8 @@ menu "LVGL configuration"
 			default n
 			depends on LV_USE_VECTOR_GRAPHIC
 	endmenu
+
+    config LV_PLATFORM_IDF
+        bool
 
 endmenu
